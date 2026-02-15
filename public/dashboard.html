@@ -78,7 +78,49 @@ async function play() {
 
         const data = await response.json();
 
-        document.getElementById("result").innerText = data.message;
+        const resultEl = document.getElementById("result");
+        resultEl.innerText = data.message;
+
+        if (data.message.includes("Gagné")) {
+
+                // Effet visuel sur les rouleaux
+                reel1.classList.add("win-effect");
+                reel2.classList.add("win-effect");
+                reel3.classList.add("win-effect");
+
+                resultEl.classList.add("jackpot");
+
+                 // Confettis simples
+                for (let i = 0; i < 30; i++) {
+                    const confetti = document.createElement("div");
+                    confetti.style.position = "fixed";
+                    confetti.style.width = "8px";
+                    confetti.style.height = "8px";
+                    confetti.style.background = "gold";
+                    confetti.style.top = "0px";
+                    confetti.style.left = Math.random() * window.innerWidth + "px";
+                    confetti.style.opacity = Math.random();
+                    confetti.style.zIndex = 9999;
+                    confetti.style.borderRadius = "50%";
+                    document.body.appendChild(confetti);
+
+                    let fall = setInterval(() => {
+                        confetti.style.top = parseInt(confetti.style.top) + 5 + "px";
+                        if (parseInt(confetti.style.top) > window.innerHeight) {
+                            confetti.remove();
+                            clearInterval(fall);
+            }
+        }, 20);
+    }
+
+    setTimeout(() => {
+        reel1.classList.remove("win-effect");
+        reel2.classList.remove("win-effect");
+        reel3.classList.remove("win-effect");
+        resultEl.classList.remove("jackpot");
+    }, 2000);
+}
+
         document.getElementById("balance").innerText = data.balance;
 
         localStorage.setItem("user", JSON.stringify({
