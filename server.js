@@ -1,17 +1,19 @@
+require("dotenv").config();
 const User = require("./models/User");
 const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
 const bcrypt = require("bcryptjs");
-require("dotenv").config();
-
 
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Remplace par ta vraie connection string
-const MONGO_URI = process.env.MONGO_URI;
+ ;const MONGO_URI = process.env.MONGO_URI || "mongodb+srv://admincasino:IKTKFiX05ZyiWaHL@cluster0.e5pqs6k.mongodb.net/?appName=Cluster0"
+
+ console.log(process.env.MONGO_URI);
+
 
 mongoose.connect(MONGO_URI)
     .then(() => console.log("✅ Connecté à MongoDB"))
