@@ -1,63 +1,60 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Dashboard</title>
+    <title>Casino Fictif</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>🎰 Casino-Fatal-Gain</h1>
 
-    <h2 id="welcome"></h2>
-    <h3>Solde : <span id="balance">0</span> €</h3>
+    <h1>🎰 Casino Fictif</h1>
 
-    <button onclick="play()">Jouer 10€</button>
-    <br><br>
-    <button onclick="bonus()">Récupérer bonus quotidien</button>
-    <br><br>
-    <button onclick="logout()">Déconnexion</button>
-  
-    <p id="result"></p>
+    <div class="container">
+        <h2 id="welcome"></h2>
+        <div class="balance">
+            Solde : <span id="balance">0</span> €
+        </div>
+
+        <div class="slot-machine">
+            <div class="reel" id="reel1">🍒</div>
+            <div class="reel" id="reel2">🍋</div>
+            <div class="reel" id="reel3">🍀</div>
+        </div>
+
+        <button onclick="play()">Jouer 10€</button>
+        <br><br>
+        <button onclick="bonus()">Bonus quotidien</button>
+        <br><br>
+        <button onclick="logout()">Déconnexion</button>
+
+        <p id="result"></p>
     </div>
-</body>
 
-    <script>
-        const user = JSON.parse(localStorage.getItem("user"));
+<script>
+const user = JSON.parse(localStorage.getItem("user"));
 
-        if (!user) {
-            window.location.href = "/login.html";
-        }
+if (!user) {
+    window.location.href = "/login.html";
+}
 
-        document.getElementById("welcome").innerText = "Bienvenue " + user.email;
-        document.getElementById("balance").innerText = user.balance;
+document.getElementById("welcome").innerText = "Bienvenue " + user.email;
+document.getElementById("balance").innerText = user.balance;
 
-        async function play() {
-            const response = await fetch("/play", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({ email: user.email })
-            });
+async function play() {
 
-            const data = await response.json();
+    const symbols = ["🍒", "🍋", "🍀", "💎", "🪙"];
 
-            document.getElementById("result").innerText = data.message;
-            document.getElementById("balance").innerText = data.balance;
+    // Animation visuelle des rouleaux
+    document.getElementById("reel1").innerText = symbols[Math.floor(Math.random()*symbols.length)];
+    document.getElementById("reel2").innerText = symbols[Math.floor(Math.random()*symbols.length)];
+    document.getElementById("reel3").innerText = symbols[Math.floor(Math.random()*symbols.length)];
 
-            localStorage.setItem("user", JSON.stringify({
-                email: user.email,
-                balance: data.balance
-            }));
-        }
-
-        async function bonus() {
-            const response = await fetch("/bonus", {
-                 method: "POST",
-                 headers: {
-                    "Content-Type": "application/json"
-                },
-                 body: JSON.stringify({ email: user.email })
-             });
+    const response = await fetch("/play", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ email: user.email })
+    });
 
     const data = await response.json();
 
@@ -69,11 +66,32 @@
         balance: data.balance
     }));
 }
-        function logout() {
-            localStorage.removeItem("user");
-            window.location.href = "/login.html";
+
+async function bonus() {
+    const response = await fetch("/bonus", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ email: user.email })
+    });
+
+    const data = await response.json();
+
+    document.getElementById("result").innerText = data.message;
+    document.getElementById("balance").innerText = data.balance;
+
+    localStorage.setItem("user", JSON.stringify({
+        email: user.email,
+        balance: data.balance
+    }));
 }
 
-    </script>
+function logout() {
+    localStorage.removeItem("user");
+    window.location.href = "/login.html";
+}
+</script>
+
 </body>
 </html>
