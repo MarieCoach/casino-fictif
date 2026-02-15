@@ -1,68 +1,90 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+
 body {
     margin: 0;
-    font-family: Arial, sans-serif;
-    background: radial-gradient(circle at center, #5a0000, #1a0000);
+    font-family: 'Poppins', sans-serif;
+    background: radial-gradient(circle at center, #2b0000 0%, #0d0000 70%);
     color: white;
     text-align: center;
+    overflow-x: hidden;
 }
 
 h1 {
-    color: gold;
-    font-size: 50px;
+    font-size: 55px;
     margin-top: 20px;
-    text-shadow: 0 0 15px gold;
+    background: linear-gradient(90deg, gold, orange, gold);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 20px rgba(255, 215, 0, 0.7);
 }
 
 .container {
-    margin-top: 30px;
+    margin-top: 40px;
+    backdrop-filter: blur(10px);
 }
 
 .balance {
-    font-size: 24px;
-    margin-top: 10px;
-    color: gold;
+    font-size: 22px;
+    margin-top: 15px;
+    color: #ffd700;
+    letter-spacing: 1px;
 }
+
+/* Slot Machine */
 
 .slot-machine {
     display: flex;
     justify-content: center;
-    margin: 40px 0;
+    margin: 50px 0;
 }
 
 .reel {
-    width: 120px;
-    height: 120px;
+    width: 130px;
+    height: 130px;
     margin: 15px;
-    background: black;
-    border: 5px solid gold;
-    border-radius: 20px;
-    font-size: 60px;
+    background: linear-gradient(145deg, #111, #000);
+    border-radius: 25px;
+    font-size: 65px;
     display: flex;
     justify-content: center;
     align-items: center;
-    box-shadow: 0 0 25px gold;
+    border: 3px solid rgba(255, 215, 0, 0.6);
+    box-shadow: 
+        0 0 20px rgba(255, 215, 0, 0.4),
+        inset 0 0 20px rgba(255, 215, 0, 0.2);
+    transition: transform 0.2s ease;
 }
 
+.reel:hover {
+    transform: scale(1.05);
+}
+
+/* Buttons */
+
 button {
-    padding: 15px 30px;
+    padding: 15px 35px;
     font-size: 18px;
     border: none;
-    border-radius: 12px;
-    background: linear-gradient(to bottom, gold, orange);
+    border-radius: 50px;
+    background: linear-gradient(90deg, #ffd700, #ff9900);
     color: black;
     font-weight: bold;
     cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 0 15px gold;
+    transition: 0.3s ease;
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.7);
 }
 
 button:hover {
-    transform: scale(1.1);
-    box-shadow: 0 0 25px orange;
+    transform: translateY(-3px);
+    box-shadow: 0 0 25px rgba(255, 165, 0, 1);
 }
 
+/* Result message */
+
 #result {
-    margin-top: 20px;
-    font-size: 22px;
+    margin-top: 25px;
+    font-size: 24px;
     font-weight: bold;
+    min-height: 30px;
 }
+
