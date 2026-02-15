@@ -6,7 +6,7 @@ const bcrypt = require("bcryptjs");
 
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 // Remplace par ta vraie connection string
 const MONGO_URI = "mongodb+srv://admincasino:IKTKFiX05ZyiWaHL@cluster0.e5pqs6k.mongodb.net/?appName=Cluster0";
