@@ -43,29 +43,52 @@ async function play() {
 
     const symbols = ["🍒", "🍋", "🍀", "💎", "🪙"];
 
-    // Animation visuelle des rouleaux
-    document.getElementById("reel1").innerText = symbols[Math.floor(Math.random()*symbols.length)];
-    document.getElementById("reel2").innerText = symbols[Math.floor(Math.random()*symbols.length)];
-    document.getElementById("reel3").innerText = symbols[Math.floor(Math.random()*symbols.length)];
+    const reel1 = document.getElementById("reel1");
+    const reel2 = document.getElementById("reel2");
+    const reel3 = document.getElementById("reel3");
 
-    const response = await fetch("/play", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ email: user.email })
-    });
+    // Ajouter animation
+    reel1.classList.add("spinning");
+    reel2.classList.add("spinning");
+    reel3.classList.add("spinning");
 
-    const data = await response.json();
+    // Animation pendant 1 seconde
+    let spinInterval = setInterval(() => {
+        reel1.innerText = symbols[Math.floor(Math.random()*symbols.length)];
+        reel2.innerText = symbols[Math.floor(Math.random()*symbols.length)];
+        reel3.innerText = symbols[Math.floor(Math.random()*symbols.length)];
+    }, 100);
 
-    document.getElementById("result").innerText = data.message;
-    document.getElementById("balance").innerText = data.balance;
+    // Arrêt progressif
+    setTimeout(async () => {
 
-    localStorage.setItem("user", JSON.stringify({
-        email: user.email,
-        balance: data.balance
-    }));
+        clearInterval(spinInterval);
+
+        reel1.classList.remove("spinning");
+        reel2.classList.remove("spinning");
+        reel3.classList.remove("spinning");
+
+        const response = await fetch("/play", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ email: user.email })
+        });
+
+        const data = await response.json();
+
+        document.getElementById("result").innerText = data.message;
+        document.getElementById("balance").innerText = data.balance;
+
+        localStorage.setItem("user", JSON.stringify({
+            email: user.email,
+            balance: data.balance
+        }));
+
+    }, 1000);
 }
+
 
 async function bonus() {
     const response = await fetch("/bonus", {

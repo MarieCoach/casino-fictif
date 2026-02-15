@@ -88,3 +88,13 @@ button:hover {
     min-height: 30px;
 }
 
+@keyframes spin {
+    0% { transform: rotateX(0deg); }
+    50% { transform: rotateX(180deg); }
+    100% { transform: rotateX(360deg); }
+}
+
+.spinning {
+    animation: spin 0.2s linear infinite;
+}
+
