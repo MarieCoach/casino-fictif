@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Connexion</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Connexion</h1>
+
+    <form id="loginForm">
+        <input type="email" id="email" placeholder="Email" required />
+        <br><br>
+        <input type="password" id="password" placeholder="Mot de passe" required />
+        <br><br>
+        <button type="submit">Se connecter</button>
+    </form>
+
+    <p id="message"></p>
+
+   <script>
+const form = document.getElementById("loginForm");
+
+form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+
+    const response = await fetch("/login", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ email, password })
+    });
+
+    const data = await response.json();
+
+    if (data.balance !== undefined) {
+        localStorage.setItem("user", JSON.stringify({
+            email,
+            balance: data.balance
+        }));
+
+        window.location.href = "/dashboard.html";
+    } else {
+        document.getElementById("message").innerText = data.message;
+    }
+});
+</script>
+
+</body>
+</html>

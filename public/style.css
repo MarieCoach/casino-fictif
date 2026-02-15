@@ -1,0 +1,41 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    color: white;
+    text-align: center;
+}
+
+h1 {
+    margin-top: 40px;
+    color: gold;
+    font-size: 40px;
+}
+
+.container {
+    margin-top: 50px;
+}
+
+button {
+    padding: 12px 25px;
+    margin: 10px;
+    border: none;
+    border-radius: 8px;
+    background-color: gold;
+    color: black;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    background-color: orange;
+    transform: scale(1.05);
+}
+
+input {
+    padding: 10px;
+    border-radius: 6px;
+    border: none;
+    width: 250px;
+}

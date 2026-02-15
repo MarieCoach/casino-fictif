@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>🎰 Casino Fictif</h1>
+
+    <h2 id="welcome"></h2>
+    <h3>Solde : <span id="balance">0</span> €</h3>
+
+    <button onclick="play()">Jouer 10€</button>
+    <br><br>
+    <button onclick="bonus()">Récupérer bonus quotidien</button>
+    <br><br>
+    <button onclick="logout()">Déconnexion</button>
+  
+    <p id="result"></p>
+    </div>
+</body>
+
+    <script>
+        const user = JSON.parse(localStorage.getItem("user"));
+
+        if (!user) {
+            window.location.href = "/login.html";
+        }
+
+        document.getElementById("welcome").innerText = "Bienvenue " + user.email;
+        document.getElementById("balance").innerText = user.balance;
+
+        async function play() {
+            const response = await fetch("/play", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ email: user.email })
+            });
+
+            const data = await response.json();
+
+            document.getElementById("result").innerText = data.message;
+            document.getElementById("balance").innerText = data.balance;
+
+            localStorage.setItem("user", JSON.stringify({
+                email: user.email,
+                balance: data.balance
+            }));
+        }
+
+        async function bonus() {
+            const response = await fetch("/bonus", {
+                 method: "POST",
+                 headers: {
+                    "Content-Type": "application/json"
+                },
+                 body: JSON.stringify({ email: user.email })
+             });
+
+    const data = await response.json();
+
+    document.getElementById("result").innerText = data.message;
+    document.getElementById("balance").innerText = data.balance;
+
+    localStorage.setItem("user", JSON.stringify({
+        email: user.email,
+        balance: data.balance
+    }));
+}
+        function logout() {
+            localStorage.removeItem("user");
+            window.location.href = "/login.html";
+}
+
+    </script>
+</body>
+</html>
