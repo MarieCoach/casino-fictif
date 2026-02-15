@@ -1,3 +1,68 @@
 body {
-    background: red !important;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: radial-gradient(circle at center, #5a0000, #1a0000);
+    color: white;
+    text-align: center;
+}
+
+h1 {
+    color: gold;
+    font-size: 50px;
+    margin-top: 20px;
+    text-shadow: 0 0 15px gold;
+}
+
+.container {
+    margin-top: 30px;
+}
+
+.balance {
+    font-size: 24px;
+    margin-top: 10px;
+    color: gold;
+}
+
+.slot-machine {
+    display: flex;
+    justify-content: center;
+    margin: 40px 0;
+}
+
+.reel {
+    width: 120px;
+    height: 120px;
+    margin: 15px;
+    background: black;
+    border: 5px solid gold;
+    border-radius: 20px;
+    font-size: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 0 25px gold;
+}
+
+button {
+    padding: 15px 30px;
+    font-size: 18px;
+    border: none;
+    border-radius: 12px;
+    background: linear-gradient(to bottom, gold, orange);
+    color: black;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 15px gold;
+}
+
+button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 25px orange;
+}
+
+#result {
+    margin-top: 20px;
+    font-size: 22px;
+    font-weight: bold;
 }
